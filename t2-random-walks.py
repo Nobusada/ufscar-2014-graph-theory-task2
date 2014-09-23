@@ -1,4 +1,5 @@
 """ Trabalho T2 da disciplina Teoria dos Grafos, ministrada em 2014/02
+	Thales, Daniel e Jorge
 """
 import networkx as nx
 import numpy as np
