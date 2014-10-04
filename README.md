@@ -4,6 +4,7 @@ O programa deve ler o(s) grafo(s) G = (V, E) especificados abaixo e executar div
 
 ###GRUPO
 --------
+
 * Thales Eduardo Adair Menato   
 
 * Daniel Nobusada               
@@ -13,6 +14,7 @@ O programa deve ler o(s) grafo(s) G = (V, E) especificados abaixo e executar div
 
 ###METODOLOGIA
 --------------
+
 A seguir são apresentadas 3 maneiras de computar a distribuição estacionária de uma CMH (Cadeia de Markov Homogênea que representa o processo não-determinístico conhecido como caminhada aleatória)
 
 1. Primeiramente, compute a distribuição estacionária teórica (steady state) do grafo em questão conforme visto em sala: w(i) = d(vi) / 2|E| (basta dividir o grau de cada vértice por 2 vezes o número de arestas do grafo). Armazene a distribuição num vetor de n elementos chamado w_real
@@ -24,6 +26,7 @@ A seguir são apresentadas 3 maneiras de computar a distribuição estacionária
 
 ###QUESTIONAMENTOS
 ------------------
+
 De posse de tais distribuições estacionárias (que representam as probabilidades de se chegar em cada vértice do conjunto), liste quais são os 10 vértices mais importantes do conjunto como sendo aqueles que possuem as maiores probabilidades w(i). Faça uma listagem dos 10 mais importantes em ordem decrescente de probabilidade. Esse processo modela de forma bastante simplificada e aproximada a ideia adotada pelo Google para organizar a internet rankeando websites de acordo com a sua importância no conjunto (Pagerank).
 
 

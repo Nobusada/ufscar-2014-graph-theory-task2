@@ -7,36 +7,62 @@ Trabalho T2 da disciplina Teoria dos Grafos, ministrada em 2014/02
 """
 import networkx as nx
 import numpy as np
+import matplotlib.pyplot as plt
 
-G = nx.read_gml('karate.gml')
+import pdb  # pdb.trace() pra debug
+
+#   Importa grafo Zachary's Karate Club
+matrixG = nx.read_gml('karate.gml')
+"""
+1)  Computacao da distribuicao estacionaria teorica (steady state) do grafo
+    w(i) = d(vi) / 2|E|
+"""
 w_real = []
-_NUM_NODES = len(G.node)
-
-for i in G.edge:
-        aux = (len(G.edge[i]) * 1.0) / (2 * len(G.nodes()))
+for i in matrixG.nodes_iter():
+        aux = float(matrixG.degree(i)) / float((2 * matrixG.number_of_edges()))
         w_real.append(aux)
+"""
+2)  Calcular The Power Method
+    http://college.cengage.com/mathematics/larson/elementary_linear/4e/shared/
+    downloads/c10s3.pdf
+"""
+#   Matriz P recebe a matriz de adjacencia de matrixG
+matrixP = nx.adjacency_matrix(matrixG)
+#   A soma de cada linha eh calculado
+sum_linha = []
+for i in matrixP:
+    sum_linha.append(i.sum())
+#   Para cada p(i,j) de P temos p(i,j) = p(i,j)/sum_linha(i)
+for i in range(0, matrixP.shape[0]):
+    for j in range(0, matrixP.shape[1]):
+        matrixP[i, j] = float(matrixP[i, j]) / float(sum_linha[i])
+# Vetor w_inicial onde a soma eh 1 com divisao de probabilidade 1/G.order()
+# Para o grafo utilizado G.order() = 34
+w_inicial = np.array([1.0/float(matrixG.order())
+                      for i in range(0, matrixG.order())])
+# Calcular w_power5
+w_power5 = np.dot(w_inicial, matrixP)
+for i in range(0, 4):
+    w_power5 = np.dot(w_power5, matrixP)
+# Calcular w_power100
+w_power100 = np.dot(w_inicial, matrixP)
+for i in range(0, 99):
+    w_power100 = np.dot(w_power100, matrixP)
+# A soma de todos os elementos destes vetores eh 1
 
-a_m = nx.adjacency_matrix(G)
-sum_a_m = []
-for i in a_m:
-    sum_a_m.append(i.sum())
+"""
+import numpy as np
 
-p_aux_matrix = []
-for i in range(0, _NUM_NODES):
-    line_array = a_m[0].getA1()
-    line = []
+x = np.arange(9).reshape((3,3))
+y = np.arange(3)
 
-    for j in line_array:
-        value = j / sum_a_m[i]
-        line.append(value)
+print np.dot(x,y)   --> multiplicacao de matrizes
 
-    p_aux_matrix.append(line)
-p_matrix = np.matrix(p_aux_matrix)
+Como gerar uma matriz atraves de listas
+a = [1, 5, 10]
+b = [5, 2, 3]
+c = [4, 7, 2]
+mat = [a, b, c]
 
-w_power5 = np.multiply(p_matrix, p_matrix)
-for i in range(0, 3):
-    w_power5 = np.multiply(w_power5, p_matrix)
-
-w_power100 = np.multiply(p_matrix, p_matrix)
-for i in range(0, 98):
-    w_power100 = np.multiply(w_power100, p_matrix)
+P = np.matrix(mat)
+"""
