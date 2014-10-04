@@ -1,7 +1,7 @@
 """
 Trabalho T2 da disciplina Teoria dos Grafos, ministrada em 2014/02
     Alunos:
-        Daniel  Nobusada
+        Daniel  Nobusada                    344443
         Thales Eduardo Adair Menato         407976
         Jorge Augusto Bernardo              407844
 """
