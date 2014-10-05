@@ -56,4 +56,4 @@ Os rankings são todos iguais? Qual o mais próximo de w_real?
 -----------------------------------
 [Zachary's Karate Club](http://networkdata.ics.uci.edu/data/karate/karate.zip): grafo com 34 vértices
 
-![Zachary's Karate Club](http://ifisc.uib-csic.es/jramasco/fig/zach_layout3.jpg "Zachary's Karate Club")
+<img src="http://ifisc.uib-csic.es/jramasco/fig/zach_layout3.jpg" alt="Zachary's Karate Club" width=666 height=478 />
