@@ -9,25 +9,35 @@ Trabalho T2 da disciplina Teoria dos Grafos, ministrada em 2014/02
 import networkx as nx
 import numpy as np
 import plotly.plotly as py
-from plotly.graph_objs import *
-py.sign_in("thamenato", "aq0t3czzut")
+
+#   Plotly eh apenas utilizada para plot online no site plotly
+#   https://plot.ly/online-graphing-and-statistics-for-educators/
+
+#from plotly.graph_objs import *
+#py.sign_in("thamenato", "aq0t3czzut")
 
 #   Importa grafo Zachary's Karate Club
 graphG = nx.read_gml('karate.gml')
+
 """
 1)  Computacao da distribuicao estacionaria teorica (steady state) do grafo
     w(i) = d(vi) / 2|E|
 """
+
+
 w_real = []
 for i in graphG.nodes_iter():
         aux = float(graphG.degree(i)) / float((2 * graphG.number_of_edges()))
         w_real.append(aux)
+
 """
 2)  Calcular The Power Method
     http://college.cengage.com/mathematics/larson/elementary_linear/4e/shared/
     downloads/c10s3.pdf
 """
-#   Matriz P recebe a matriz de adjacencia de matrixG
+
+
+#   Matriz P recebe a matriz de adjacencia de graphG
 matrixP = nx.adjacency_matrix(graphG)
 #   A soma de cada linha eh calculado
 sum_linha = []
@@ -50,31 +60,34 @@ w_power100 = np.dot(w_inicial, matrixP)
 for i in range(0, 99):
     w_power100 = np.dot(w_power100, matrixP)
 # A soma de todos os elementos destes vetores eh 1
+
 """
 3)  Escolha de 2 vertices distintos e realizar a caminhada aleatoria de ambos
 """
+
+
 # Funcao Random Walk
 def random_walk(node, numPassos):
-    #   Vetor contendo numero de posicoes = numeros de vertices(noh)
+#   Vetor contendo numero de posicoes = numeros de vertices(noh)
     caminhada = [0.0 for i in range(0, graphG.number_of_nodes())]
-    #   Para o numero de passos desejado, uma lista contendo os vizinhos sera armazenada
-    #   um indice aleatorio desta lista eh selecionado como proximo noh que entao passa
-    #   a ser o noh atual e numero de visitar naquele noh eh incrementado
+#   Para o numPassos, uma lista contendo os vizinhos sera armazenada
+#   proxNo eh selecionado aleatoriamente que entao passa a ser node
+#   e numero de visitas naquele noh eh incrementado
     for i in range(0, numPassos):
         vizinhos = graphG.neighbors(node)
         proxNo = vizinhos[np.random.randint(0, len(vizinhos))]
         node = proxNo
         caminhada[node-1] += 1
-    #   Realiza a divisao pelo numero de passos em todos os numeros de lista
+#   Realiza a divisao pelo numero de passos em todos os numeros de lista
     for i in range(0, len(caminhada)):
         caminhada[i] /= numPassos
-    #   Retorna vetor contendo o numero de passadas / num de passos em cada vertice (noh)
+#   Retorna vetor contendo a caminhada
     return caminhada
 
 # Escolha de dois vertices (noh) aleatorios
 nodeA = np.random.random_integers(1, graphG.number_of_nodes())
 nodeB = np.random.random_integers(1, graphG.number_of_nodes())
-# Caso vertice B seja igual a A, receber outros numeros ateh que sejam distintos
+# Caso vertice B seja igual a A, continuar gerando num aleatorio
 while nodeB is nodeA:
     nodeB = np.random.random_integers(1, graphG.number_of_nodes())
 # 2 caminhadas aleatorias de tamanho N = 100
@@ -84,17 +97,17 @@ w_random100b = random_walk(nodeB, 100)
 w_random10000a = random_walk(nodeA, 10000)
 w_random10000b = random_walk(nodeB, 10000)
 
-# Print no console de todos os dados obtidos
+# Print no console de todos os dados obtidos (com 4 casas decimais)
 print "w_power5: "
 w_power5_lista = []
 for i in range(0, w_power5.size):
-    w_power5_lista.append('%.4f'%w_power5[0, i])
+    w_power5_lista.append('%.4f' % w_power5[0, i])
 print w_power5_lista
 
 print "w_power100: "
 w_power100_lista = []
 for i in range(0, w_power100.size):
-    w_power100_lista.append('%.4f'%w_power100[0, i])
+    w_power100_lista.append('%.4f' % w_power100[0, i])
 print w_power100_lista
 
 print "w_random100a:"
@@ -109,12 +122,12 @@ print w_random10000a
 print "w_random10000b:"
 print w_random10000b
 
-#    Para plotar no link: https://plot.ly/~thamenato/2/t2-random-walk/
-#    basta descomentar e executar o codigo novamente
-#    Tem de instalar a biblioteca (https://plot.ly/python/getting-started/)
-#    no Windows eh soh abrir o menu do Python(x,y) e escolher interactive consoles: IPython(sh)
-#    e executar: pip install plotly
-
+#   Para plotar no link: https://plot.ly/~thamenato/2/t2-random-walk/
+#   basta descomentar e executar o codigo novamente
+#   Tem de instalar a biblioteca (https://plot.ly/python/getting-started/)
+#   no Windows eh soh abrir o menu do Python(x,y)
+#   e escolher interactive consoles: IPython(sh)
+#   executar: pip install plotly
 """
 trace_power5 = Bar(
     x = graphG.nodes(),
