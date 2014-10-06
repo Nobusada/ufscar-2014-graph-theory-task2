@@ -8,13 +8,20 @@ Trabalho T2 da disciplina Teoria dos Grafos, ministrada em 2014/02
 """
 import networkx as nx
 import numpy as np
-import plotly.plotly as py
 
-#   Plotly eh apenas utilizada para plot online no site plotly
-#   https://plot.ly/online-graphing-and-statistics-for-educators/
+#   Plotly eh utilizada para plot online no site: https://plot.ly
+#   Exemplo jah plotado: https://plot.ly/~thamenato/2/t2-random-walk/
+#   Caso queira plotar, seguir as instrucoes abaixo:
 
-#from plotly.graph_objs import *
-#py.sign_in("thamenato", "aq0t3czzut")
+#   Colocar seu username utilizado para logar no site
+username = ""
+#   API Key encontrada em Settings, no Menu clicando no seu username
+api_key = ""
+
+if username is not "" and api_key is not "":
+    import plotly.plotly as py
+    from plotly.graph_objs import *
+    py.sign_in(username, api_key)
 
 #   Importa grafo Zachary's Karate Club
 graphG = nx.read_gml('karate.gml')
@@ -128,91 +135,92 @@ print w_random10000b
 #   no Windows eh soh abrir o menu do Python(x,y)
 #   e escolher interactive consoles: IPython(sh)
 #   executar: pip install plotly
-"""
-trace_power5 = Bar(
-    x = graphG.nodes(),
-    y = np.squeeze(np.asarray(w_power5)),
-    name = 'w_power5',
-    marker = Marker(
-        color='rgb(51,102,255)'
-    )
-)
-trace_power100 = Bar(
-    x = graphG.nodes(),
-    y = np.squeeze(np.asarray(w_power100)),
-    name = 'w_power100',
-    marker = Marker(
-        color='rgb(0,184,245)'
-    )
-)
-trace_random100a = Bar(
-    x = graphG.nodes(),
-    y = np.squeeze(np.asarray(w_random100a)),
-    name = 'w_random100a',
-    marker = Marker(
-        color='rgb(138,184,0)'
-    )
-)
-trace_random100b = Bar(
-    x = graphG.nodes(),
-    y = np.squeeze(np.asarray(w_random100b)),
-    name = 'w_random100b',
-    marker = Marker(
-        color='rgb(184,245,0)'
-    )
-)
-trace_random10000a = Bar(
-    x = graphG.nodes(),
-    y = np.squeeze(np.asarray(w_random10000a)),
-    name = 'w_random10000a',
-    marker = Marker(
-        color='rgb(245,184,0)'
-    )
-)
-trace_random10000b = Bar(
-    x = graphG.nodes(),
-    y = np.squeeze(np.asarray(w_random10000b)),
-    name = 'w_random10000b',
-    marker = Marker(
-        color='rgb(255,102,51)'
-    )
-)
-data = Data([trace_power5, trace_power100, trace_random100a,
-             trace_random100b, trace_random10000a, trace_random10000b])
-layout = Layout(
-    title = 'T2: Random Walk',
-    xaxis = XAxis(
-        title = 'Nodes',
-        titlefont = Font(
-            size = 16,
-            color = 'rgb(107, 107, 107)'
-        ),
-        tickfont = Font(
-            size = 14,
-            color = 'rgb(107, 107, 107)'
+
+if username is not "" and api_key is not "":
+    trace_power5 = Bar(
+        x = graphG.nodes(),
+        y = np.squeeze(np.asarray(w_power5)),
+        name = 'w_power5',
+        marker = Marker(
+            color='rgb(51,102,255)'
         )
-    ),
-    yaxis = YAxis(
-        title = 'Probability',
-        titlefont = Font(
-            size = 16,
-            color = 'rgb(107, 107, 107)'
-        ),
-        tickfont = Font(
-            size = 14,
-            color = 'rgb(107, 107, 107)'
+    )
+    trace_power100 = Bar(
+        x = graphG.nodes(),
+        y = np.squeeze(np.asarray(w_power100)),
+        name = 'w_power100',
+        marker = Marker(
+            color='rgb(0,184,245)'
         )
-    ),
-    legend = Legend(
-        x = 0.25,
-        y = 1.0,
-        bgcolor = 'rgba(255, 255, 255, 0)',
-        bordercolor = 'rgba(255, 255, 255, 0)'
-    ),
-    barmode = 'group',
-    bargap = 0.15,
-    bargroupgap = 0.1
-)
-fig = Figure(data = data, layout = layout)
-plot_url = py.plot(fig, filename='T2_Random_Walks')
-"""
+    )
+    trace_random100a = Bar(
+        x = graphG.nodes(),
+        y = np.squeeze(np.asarray(w_random100a)),
+        name = 'w_random100a',
+        marker = Marker(
+            color='rgb(138,184,0)'
+        )
+    )
+    trace_random100b = Bar(
+        x = graphG.nodes(),
+        y = np.squeeze(np.asarray(w_random100b)),
+        name = 'w_random100b',
+        marker = Marker(
+            color='rgb(184,245,0)'
+        )
+    )
+    trace_random10000a = Bar(
+        x = graphG.nodes(),
+        y = np.squeeze(np.asarray(w_random10000a)),
+        name = 'w_random10000a',
+        marker = Marker(
+            color='rgb(245,184,0)'
+        )
+    )
+    trace_random10000b = Bar(
+        x = graphG.nodes(),
+        y = np.squeeze(np.asarray(w_random10000b)),
+        name = 'w_random10000b',
+        marker = Marker(
+            color='rgb(255,102,51)'
+        )
+    )
+    data = Data([trace_power5, trace_power100, trace_random100a,
+                 trace_random100b, trace_random10000a, trace_random10000b])
+    layout = Layout(
+        title = 'T2: Random Walk',
+        xaxis = XAxis(
+            title = 'Nodes',
+            titlefont = Font(
+                size = 16,
+                color = 'rgb(107, 107, 107)'
+            ),
+            tickfont = Font(
+                size = 14,
+                color = 'rgb(107, 107, 107)'
+            )
+        ),
+        yaxis = YAxis(
+            title = 'Probability',
+            titlefont = Font(
+                size = 16,
+                color = 'rgb(107, 107, 107)'
+            ),
+            tickfont = Font(
+                size = 14,
+                color = 'rgb(107, 107, 107)'
+            )
+        ),
+        legend = Legend(
+            x = 0.25,
+            y = 1.0,
+            bgcolor = 'rgba(255, 255, 255, 0)',
+            bordercolor = 'rgba(255, 255, 255, 0)'
+        ),
+        barmode = 'group',
+        bargap = 0.15,
+        bargroupgap = 0.1
+    )
+    fig = Figure(data = data, layout = layout)
+    plot_url = py.plot(fig, filename='T2_Random_Walks')
+
