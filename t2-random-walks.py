@@ -59,6 +59,7 @@ for i in range(0, matrixP.shape[0]):
 w_inicial = np.array([1.0/float(graphG.order())
                       for i in range(0, graphG.order())])
 # Calcular w_power5
+
 w_power5 = np.dot(w_inicial, matrixP)
 for i in range(0, 4):
     w_power5 = np.dot(w_power5, matrixP)
@@ -105,6 +106,9 @@ w_random10000a = random_walk(nodeA, 10000)
 w_random10000b = random_walk(nodeB, 10000)
 
 # Print no console de todos os dados obtidos (com 4 casas decimais)
+print "w_real:"
+print w_real
+
 print "w_power5: "
 w_power5_lista = []
 for i in range(0, w_power5.size):
@@ -137,6 +141,14 @@ print w_random10000b
 #   executar: pip install plotly
 
 if username is not "" and api_key is not "":
+    trace_real = Bar(
+        x = graphG.nodes(),
+        y = np.squeeze(np.asarray(w_real)),
+        name = 'w_real',
+        marker = Marker(
+            color='rgb(128,0,255)'
+        )
+    )
     trace_power5 = Bar(
         x = graphG.nodes(),
         y = np.squeeze(np.asarray(w_power5)),
@@ -185,7 +197,7 @@ if username is not "" and api_key is not "":
             color='rgb(255,102,51)'
         )
     )
-    data = Data([trace_power5, trace_power100, trace_random100a,
+    data = Data([trace_real, trace_power5, trace_power100, trace_random100a,
                  trace_random100b, trace_random10000a, trace_random10000b])
     layout = Layout(
         title = 'T2: Random Walk',
@@ -223,4 +235,3 @@ if username is not "" and api_key is not "":
     )
     fig = Figure(data = data, layout = layout)
     plot_url = py.plot(fig, filename='T2_Random_Walks')
-
